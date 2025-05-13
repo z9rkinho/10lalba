@@ -1,0 +1,74 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+{% if data %}
+<br>
+<h2>Благодарим за предоставленную информацию!</h2>
+<br>
+<h3>Мы сообщили о себе следующее:</h3>
+<ul>
+    <li><span>Имя:</span> {{ data.name }}</li>
+    <li><span>Город:</span> {{ data.city }}</li>
+    <li><span>Пол:</span> {{ data.gender }}</li>
+    <li><span>Работа:</span> {{ data.job }}</li>
+    <li><span>В интернете:</span> {{ data.internet }}</li>
+    <li><span>Получать новости сайта на e-mail:</span> {{ data.notice }}</li>
+    <li><span>Ваш e-mail:</span> {{ data.email }}</li>
+    <li><span>Информация о себе:</span> {{ data.message }}</li>
+</ul>
+{% else %}
+<br>
+<h2>Отправьте пожалуйста заполненную анкету</h2>
+<br>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label><br>
+        {{ form.name }}<br><br>
+        <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label><br>
+        {{ form.city }}<br><br>
+        <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label><br>
+        {{ form.gender }}<br><br>
+        <label for="{{ form.job.id_for_label }}">{{ form.job.label }}</label><br>
+        {{ form.job }}<br><br>
+        <label for="{{ form.internet.id_for_label }}">{{ form.internet.label }}</label><br>
+        {{ form.internet }}<br><br>
+        <label for="{{ form.notice.id_for_label }}">{{ form.notice.label }}</label><br>
+        {{ form.notice }}<br><br>
+        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label><br>
+        {{ form.email }}<br><br>
+        <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label><br>
+        {{ form.message }}<br><br>
+        <input type="submit" id="submitButton" value="Отправить">
+    </form>
+</div>
+{% endif %}
+
+
+<script>
+        // Получаем кнопку отправки формы
+        const submitButton = document.getElementById('submitButton');
+
+        // Эффекты для кнопки отправки
+        submitButton.addEventListener('mouseover', function () { // Наведение курсора 
+            this.style.color = 'red'; // Изменяем цвет текста на красный
+        });
+
+        submitButton.addEventListener('mouseout', function () { // Отведение курсора 
+            this.style.color = ''; // Восстанавливаем исходный цвет текста
+        });
+
+        // Эффекты для полей ввода
+        const inputFields = document.querySelectorAll('input, textarea'); // Выбираем все поля ввода 
+
+        inputFields.forEach(function (field) {
+            field.addEventListener('focus', function () { // выбор поля
+                this.style.backgroundColor = 'lightblue'; // Изменяем фон на светло-голубой
+            });
+
+            field.addEventListener('blur', function () { // снятие выбора
+                this.style.backgroundColor = ''; // Восстанавливаем исходный фон
+            });
+        });
+</script>
+{% endblock %}
